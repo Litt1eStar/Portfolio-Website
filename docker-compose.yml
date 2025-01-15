@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./Portfolio
+    container_name: portfolio_client
+    ports:
+      - "5173:5173"
+    networks:
+      - portfolio-network
+    develop:
+      watch:
+        - action: sync
+          path: ./Portfolio
+          target: /app
+        - action: rebuild
+          path: ./Portfolio/package.json
+          target: /app
+
+networks:
+  portfolio-network:
+    driver: bridge
